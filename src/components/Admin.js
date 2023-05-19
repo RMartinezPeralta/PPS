@@ -1,15 +1,6 @@
-import { useNavigate } from "react-router-dom";
-
 const Admin = () => {
-  const navigate = useNavigate();
-  const homeHandler = () => {
-    navigate("/");
-  };
-
   return (
     <>
-      <button onClick={homeHandler}>Volver a home</button>
-
       <p>ADMIN PROFILE</p>
 
       <p>ID_ADMIN string</p>

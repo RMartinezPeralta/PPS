@@ -2,14 +2,9 @@ import { useNavigate } from "react-router-dom";
 
 const Client = () => {
   const navigate = useNavigate();
-  const homeHandler = () => {
-    navigate("/");
-  };
 
   return (
     <>
-      <button onClick={homeHandler}>Volver a home</button>
-
       <p>CLIENT PROFILE ABM Usuario</p>
       <p>. . .</p>
       <p>ID_CLIENTE string</p>

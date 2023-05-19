@@ -1,14 +1,15 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const Product = ({ product }) => {
+const Product = ({ productData }) => {
   return (
-    <>
-      <div>asd</div>
-      <div>href {product.foto}</div>
-      <h3>{product.price} Precio</h3>
-      <p>{product.name}Nombre o Titulo de Producto</p>
-      <p>{product.description}Descripción breve Producto</p>
-    </>
+    <div className="product_card">
+      <div> {productData.img}</div>
+      <p> Categoria: {productData.category}</p>
+      <h2>{productData.name}</h2>
+      <h3> Precio: {productData.price}</h3>
+      <p>Descripcion: {productData.description}</p>
+    </div>
   );
 };
 

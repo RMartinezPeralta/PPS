@@ -1,14 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 const Vendor = () => {
-  const navigate = useNavigate();
-  const homeHandler = () => {
-    navigate("/");
-  };
-
   return (
     <>
-      <button onClick={homeHandler}>Volver a home</button>
       <p>VENDOR PROFILE</p>
       <p>ID_VENDEDOR</p>
       <p>PASS_VENDEDOR</p>
