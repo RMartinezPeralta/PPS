@@ -11,6 +11,7 @@ const Filter = ({ filterCategory, categoryChanged, label, all }) => {
         <option value="Clavos">Clavos</option>
         <option value="Tornillos">Tornillos</option>
         <option value="Destornilladores">Destornilladores</option>
+        <option value="Herramientas">Herramientas</option>
       </select>
     </div>
   );
