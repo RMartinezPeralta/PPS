@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { Getproducts } from "../Service/FakeApi";
-import { getProductById } from "../Service/FakeApi";
+import { Getproducts } from "../Service/Api";
+import { getProductById } from "../Service/Api";
 
 export const Cartcontext = createContext(null);
 
@@ -23,8 +23,8 @@ export const CartContextProvider = (props) => {
         console.log("ID", item);
         let itemInfo = getProductById(item);
         console.log(cartItems[item]);
-        console.log(item.price);
-        totalAmount += cartItems[item] * itemInfo.price;
+        console.log(item.pricePurchase);
+        totalAmount += cartItems[item] * itemInfo.pricePurchase;
       }
     }
     return totalAmount;

@@ -1,8 +1,8 @@
 const NotFound = () => {
   return (
     <div className="centered">
-      <h1>Pagina no encontrada D: </h1>
-      <img className="Error_image" src={"https://i.imgur.com/uaW7Hq6.jpg"} alt="Imagen no encontrada" />
+      <h1>PAGINA NO ENCONTRADA </h1>
+      <img className="Error_image" src={"https://i.imgur.com/95ALe3s.png"} alt="Imagen no encontrada" />
     </div>
   );
 };

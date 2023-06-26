@@ -1,16 +1,16 @@
 import { Route, Routes, RouterProvider, Navigate, Link, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 
-import Admin from "./Admin";
-import Client from "./Client";
-import Home from "./Home";
-import Products from "./Products/Products";
-import Vendor from "./Vendor";
+import Admin from "../Admin";
+import Client from "../Client";
+import Home from "../Home";
+import Products from "../Products/Products";
+import Vendor from "../Vendor/Vendor";
 import Layout from "./Layout";
-import NotFound from "./Notfound";
-import LoginScreen from "./User/Login";
-import Productscreen from "./Products/Productscreen";
-import Cart_screen from "./Cart/Cart_screen";
-import Purchase_screen from "./Cart/Purchase_screen";
+import NotFound from "../Notfound";
+import LoginScreen from "../User/Login";
+import Productscreen from "../Products/Productscreen";
+import Cart_screen from "../Cart/Cart_screen";
+import Purchase_screen from "../Cart/Purchase_screen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

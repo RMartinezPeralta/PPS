@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cartcontext } from "./Cart_context";
-import { Getproducts } from "../Service/FakeApi";
+import { Getproducts } from "../Service/Api";
 import Cart_item from "./Cart_item";
 import LoadingScreen from "../Loadingscreen";
 
@@ -25,14 +25,9 @@ const Cart_screen = () => {
   });
   const fetchfakeData = async () => {
     setLoading(true);
-    await delay(1000);
-
-    articleListHandler(Getproducts());
-
+    articleListHandler(await Getproducts());
     setLoading(false);
   };
-
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   useEffect(() => {
     fetchfakeData();
@@ -41,29 +36,37 @@ const Cart_screen = () => {
   return (
     <div>
       <h2>Carrito de compras</h2>
-      <div>{loading === true ? <LoadingScreen /> : <div className="Cart_items">{Cart_map}</div>}</div>
-      {Object.keys(cartItems).length === 0 ? (
-        <h2>Vacio</h2>
-      ) : (
-        <div>
-          <p> Subtotal: ${totalAmount} </p>
-          <button
-            className="Button"
-            onClick={() => {
-              checkout();
-              navigate("/Purchase");
-            }}>
-            Comprar
-          </button>
-          <button
-            className="Button"
-            onClick={() => {
-              checkout();
-            }}>
-            Borrar
-          </button>{" "}
-        </div>
-      )}
+      <div>
+        {loading === true ? (
+          <LoadingScreen />
+        ) : (
+          <div className="Cart_screen">
+            <div className="Cart_items">{Cart_map} </div>
+            {Object.keys(cartItems).length === 0 ? (
+              <h2>Vacio</h2>
+            ) : (
+              <div>
+                <p> Subtotal: ${totalAmount} </p>
+                <button
+                  className="Button"
+                  onClick={() => {
+                    checkout();
+                    navigate("/Purchase");
+                  }}>
+                  Comprar
+                </button>
+                <button
+                  className="Button"
+                  onClick={() => {
+                    checkout();
+                  }}>
+                  Cancelar Compra
+                </button>{" "}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

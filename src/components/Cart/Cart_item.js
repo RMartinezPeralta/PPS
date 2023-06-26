@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { Cartcontext } from "./Cart_context";
 
 const CartItem = ({ productData }) => {
-  const { cartItems, addToCart, removeFromCart, updateCartItemCount } = useContext(Cartcontext);
+  const { cartItems, addToCart, removeFromCart } = useContext(Cartcontext);
 
   return (
     <div className="Cart_item_card">
       <div className="Cart_item_text">
         <h3>{productData.name}</h3>
-        <p>Precio: ${productData.price}</p>
+        <p>Precio: ${productData.pricePurchase}</p>
       </div>
       <div className="Product_card_img">
         <img className="Image" src={productData.img} alt="Imagen no encontrada" />
@@ -16,7 +16,7 @@ const CartItem = ({ productData }) => {
 
       <div className="Cart_item_buttons">
         <button onClick={() => removeFromCart(productData.id)}> - </button>
-        <input value={cartItems[productData.id]} onChange={(e) => updateCartItemCount(Number(e.target.value), productData.id)} />
+        <p>{cartItems[productData.id]}</p>
         <button onClick={() => addToCart(productData.id)}> + </button>
       </div>
     </div>

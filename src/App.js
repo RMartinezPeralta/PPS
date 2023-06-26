@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 
-import Router from "./components/Router";
+import Router from "./components/Router/Router";
 
 import { AuthContext } from "./components/User/Authcontext";
 import { AuthDispatchContext } from "./components/User/Authcontextdispatch";

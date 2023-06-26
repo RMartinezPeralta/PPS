@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import Filter from "./Filter";
-import { Getproducts } from "../Service/FakeApi";
+import { Getproducts } from "../Service/Api";
 import LoadingScreen from "../Loadingscreen";
 
 const Products = () => {
@@ -11,37 +11,19 @@ const Products = () => {
     setArticlesList(List);
   };
 
-  const url = "https://localhost:7167/api/Product?state=1";
-
   const fetchData = async () => {
-    fetch(url, {
-      method: "GET",
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setArticlesList(data);
-      });
-  };
-
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-  const fetchfakeData = async () => {
     setLoading(true);
-    await delay(1000);
-
-    articleListHandler(Getproducts());
-
+    const List = await Getproducts();
+    console.log(List);
+    articleListHandler(List);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchfakeData();
+    fetchData();
   }, []);
 
-  const [filterCategory, setFilterCategory] = useState("All");
+  const [filterCategory, setFilterCategory] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
@@ -51,7 +33,7 @@ const Products = () => {
   };
 
   // Filter and paginate the products
-  const filteredProducts = Object.values(articlesList).filter((product) => filterCategory === "All" || product.category === filterCategory);
+  const filteredProducts = Object.values(articlesList).filter((product) => filterCategory === 0 || product.categoryId === filterCategory);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -76,14 +58,13 @@ const Products = () => {
   };
 
   // Render Products filtered
-  const productsMapped = currentProducts.map((product, index) => <Product key={product.id + index} productData={product} />); //Fakeapi render
+  const productsMapped = currentProducts.map((product) => <Product key={product.id} productData={product} />); //Render Filtered products
 
   return (
     <>
       <div className="Products">
         <h1>Articulos </h1>
         <Filter filterCategory={filterCategory} categoryChanged={filterChangedHandler} label="Filtrar por categoria" all={true} />
-
         {loading === true ? <LoadingScreen /> : <div className="Product_list"> {productsMapped}</div>}
         {renderPageNumbers()}
       </div>

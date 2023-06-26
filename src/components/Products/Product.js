@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cartcontext } from "../Cart/Cart_context";
+import { deleteProduct } from "../Service/Api";
 
 const Product = ({ productData }) => {
   const navigate = useNavigate();
@@ -18,11 +19,14 @@ const Product = ({ productData }) => {
       </div>
       <div className="product_card_text">
         <h3>{productData.name}</h3>
-        <p>Precio: ${productData.price}</p>
-        <button className="Buy_button" onClick={() => addToCart(productData.id)}>
-          Agregar al carro {cartItemCount > 0 && <> ({cartItemCount})</>}
-        </button>
+        <p>Precio: ${productData.pricePurchase}</p>
       </div>
+      <button className="Buy_button" onClick={() => addToCart(productData.id)}>
+        Agregar al carro {cartItemCount > 0 && <> ({cartItemCount})</>}
+      </button>
+      <button className="Delete_button" onClick={() => deleteProduct(productData.id)}>
+        Borrar
+      </button>
     </div>
   );
 };
