@@ -1,4 +1,4 @@
-import { Route, Routes, RouterProvider, Navigate, Link, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import { Route, RouterProvider, Navigate, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 
 import Admin from "../Admin";
 import Client from "../Client";
@@ -11,12 +11,14 @@ import LoginScreen from "../User/Login";
 import Productscreen from "../Products/Productscreen";
 import Cart_screen from "../Cart/Cart_screen";
 import Purchase_screen from "../Cart/Purchase_screen";
+import Userpage from "../User/Userpage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="/Home" element={<Home />} />
       <Route path="/" element={<Navigate replace to="/Home" />} />
+      <Route path="/account" element={<Userpage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/vendor" element={<Vendor />} />
       <Route path="/client" element={<Client />} />

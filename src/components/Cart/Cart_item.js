@@ -10,9 +10,8 @@ const CartItem = ({ productData }) => {
         <h3>{productData.name}</h3>
         <p>Precio: ${productData.pricePurchase}</p>
       </div>
-      <div className="Product_card_img">
-        <img className="Image" src={productData.img} alt="Imagen no encontrada" />
-      </div>
+
+      <img className="Cart_card_img " src={productData.img} alt="Imagen no encontrada" />
 
       <div className="Cart_item_buttons">
         <button onClick={() => removeFromCart(productData.id)}> - </button>

@@ -1,35 +1,26 @@
-import { createContext, useEffect, useState } from "react";
-import { Getproducts } from "../Service/Api";
+import { createContext, useState } from "react";
 import { getProductById } from "../Service/Api";
 
 export const Cartcontext = createContext(null);
 
-const getDefaultCart = () => {
-  let cart = {};
-  for (let i = 1; i < Getproducts().length + 1; i++) {
-    cart[i] = 0;
-  }
-  return cart;
-};
-
 export const CartContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getDefaultCart());
+  // Los objetos del carro se almacenan con su ID mas su cantidad
+  const [cartItems, setCartItems] = useState([]);
   const Cart_length = Object.keys(cartItems).length;
 
-  const getTotalCartAmount = () => {
+  // Calcula la suma del precio de cada item multiplicado por su cantidad
+  const getTotalCartAmount = async () => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
         console.log("ID", item);
-        let itemInfo = getProductById(item);
-        console.log(cartItems[item]);
-        console.log(item.pricePurchase);
+        let itemInfo = await getProductById(item);
         totalAmount += cartItems[item] * itemInfo.pricePurchase;
       }
     }
     return totalAmount;
   };
-
+  // Añade un objeto (Su ID) al carro, o le suma 1 a su cantidad
   const addToCart = (itemId) => {
     setCartItems((prev) => {
       const updatedItems = { ...prev };
@@ -42,7 +33,7 @@ export const CartContextProvider = (props) => {
       return updatedItems;
     });
   };
-
+  // Remueve 1 de la cantidad de un objeto, o lo borra si la cantidad llega a 0
   const removeFromCart = (itemId) => {
     setCartItems((prev) => {
       const updatedCartItems = { ...prev, [itemId]: prev[itemId] - 1 };
@@ -52,13 +43,13 @@ export const CartContextProvider = (props) => {
       return updatedCartItems;
     });
   };
-
+  // Actualiza la cantidad de un objeto
   const updateCartItemCount = (newAmount, itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
   };
-
+  // Vacia el carro, crea la orden de compra (Sin implementar)
   const checkout = () => {
-    setCartItems(getDefaultCart());
+    setCartItems([]);
   };
 
   const contextValue = {

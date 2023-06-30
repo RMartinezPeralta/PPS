@@ -13,8 +13,12 @@ const Cart_screen = () => {
   };
   const { cartItems, checkout, getTotalCartAmount } = useContext(Cartcontext);
   const navigate = useNavigate();
-  const totalAmount = getTotalCartAmount();
-  //const productsMapped = currentProducts.map((product, index) => <Product key={product.id + index} productData={product} />); //Fakeapi render
+  const [totalAmount, setTotalAmount] = useState(null);
+  const handleAmount = async () => {
+    setTotalAmount(null);
+    const newAmount = await getTotalCartAmount();
+    setTotalAmount(newAmount);
+  };
 
   const Cart_map = Object.keys(articlesList).map((key) => {
     const product = articlesList[key];
@@ -23,50 +27,51 @@ const Cart_screen = () => {
     }
     return null;
   });
-  const fetchfakeData = async () => {
+
+  const fetchData = async () => {
     setLoading(true);
     articleListHandler(await Getproducts());
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchfakeData();
+    fetchData();
   }, []);
-  //{loading === true ? <LoadingScreen /> : <div className="Product_list"> {productsMapped}</div>}
+
+  useEffect(() => {
+    handleAmount();
+  }, [cartItems]);
+
   return (
-    <div>
+    <div className="Cart_screen">
       <h2>Carrito de compras</h2>
-      <div>
-        {loading === true ? (
-          <LoadingScreen />
-        ) : (
-          <div className="Cart_screen">
-            <div className="Cart_items">{Cart_map} </div>
-            {Object.keys(cartItems).length === 0 ? (
-              <h2>Vacio</h2>
-            ) : (
-              <div>
-                <p> Subtotal: ${totalAmount} </p>
+      {loading === true ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          {Object.keys(cartItems).length === 0 ? (
+            <h3>El carrito esta vacio</h3>
+          ) : (
+            <div className="Cart_divider">
+              <div className="Cart_items">{Cart_map}</div>
+              <div className="Cart_options">
+                {totalAmount !== null ? <p> Subtotal: ${totalAmount} </p> : <p>Cargando Subtotal...</p>}
                 <button
-                  className="Button"
+                  className="Green_button"
                   onClick={() => {
                     checkout();
                     navigate("/Purchase");
                   }}>
                   Comprar
                 </button>
-                <button
-                  className="Button"
-                  onClick={() => {
-                    checkout();
-                  }}>
+                <button className="Red_button" onClick={checkout}>
                   Cancelar Compra
-                </button>{" "}
+                </button>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

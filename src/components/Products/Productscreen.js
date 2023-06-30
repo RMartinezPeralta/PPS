@@ -11,15 +11,14 @@ const Productscreen = () => {
   const cartItemCount = cartItems[id];
   const [article, setArticle] = useState("");
 
+  // Trae un producto en base a su id
   const getProduct = async () => {
-    //Fakeapi
     setLoading(true);
     setArticle(await getProductById(id));
     setLoading(false);
   };
 
   useEffect(() => {
-    //Traer un objeto
     getProduct();
   }, []);
   return (
@@ -33,7 +32,7 @@ const Productscreen = () => {
           <img className="Product_page_image" src={article.img} alt="Imagen no encontrada"></img>
           <p>{article.description}</p>
           <p> Precio: ${article.pricePurchase}</p>
-          <button className="Buy_button" onClick={() => addToCart(article.id)}>
+          <button className="Green_button" onClick={() => addToCart(article.id)}>
             Agregar al carro {cartItemCount > 0 && <> ({cartItemCount})</>}
           </button>
         </div>

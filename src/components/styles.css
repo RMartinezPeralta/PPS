@@ -1,7 +1,7 @@
 :root {
   --Cyan_color: rgb(0, 204, 255);
-  --Green_color: rgb(101, 255, 101);
-  --Red_color: rgb(255, 54, 54);
+  --Green_color: rgb(138, 255, 138);
+  --Red_color: rgb(255, 118, 118);
 
   --Background_image: url("https://img.freepik.com/vector-premium/patron-fisuras-geometrico-neon-azul_601200-1278.jpg?w=2000");
 }
@@ -11,12 +11,12 @@
   width: 100%;
   min-width: 400px;
   height: auto;
-  min-height: 500px;
+  min-height: 600px;
   padding-bottom: 1%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -26,6 +26,7 @@ button {
   margin: 2px;
   font-weight: 900;
   background-color: rgb(222, 222, 222);
+  background: linear-gradient(to bottom, rgb(255, 255, 255), #b6b6b6);
   cursor: pointer;
   border: #007bff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -34,7 +35,43 @@ button {
 }
 
 button:hover {
-  background-color: #888888;
+  background: linear-gradient(to bottom, rgb(255, 255, 255), #838383);
+}
+
+.Green_button {
+  text-transform: uppercase;
+  padding: 8px;
+  margin: 2px;
+  font-weight: 900;
+  background-color: var(--Green_color);
+  background: linear-gradient(to bottom, var(--Green_color), #00ff0d);
+  cursor: pointer;
+  border: #007bff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  height: 35px;
+}
+
+.Green_button:hover {
+  background: linear-gradient(to bottom, var(--Green_color), #00a008);
+}
+
+.Red_button {
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 8px;
+  margin: 2px;
+  font-weight: 900;
+  background: linear-gradient(to bottom, var(--Red_color), #ff0000);
+  cursor: pointer;
+  border: #007bff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  height: 35px;
+}
+
+.Red_button:hover {
+  background: linear-gradient(to bottom, var(--Red_color), #b40000);
 }
 
 .Image {
@@ -45,6 +82,21 @@ button:hover {
 
 .asd {
   display: grid;
+}
+
+.Products {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Filter_container {
+  width: 400px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .Product_list {
@@ -111,37 +163,10 @@ button:hover {
   cursor: pointer;
 }
 
-.Buy_button {
-  text-transform: uppercase;
-  padding: 8px;
-  font-weight: 900;
-  background-color: var(--Green_color);
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  height: auto;
-  width: auto;
-}
-
-.Delete_button {
-  text-transform: uppercase;
-  padding: 8px;
-  font-weight: 900;
-  background-color: var(--Red_color);
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  height: auto;
-  width: auto;
-}
-
-.Buy_button:hover {
-  background-color: rgb(25, 216, 0);
-}
-
 .product_page {
+  width: 700px;
   border-radius: 15px;
-  margin: 1%;
+  margin: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,8 +186,10 @@ button:hover {
 .Header {
   background-color: var(--Cyan_color);
   background-image: var(--Background_image);
+
   min-height: 200px;
   min-width: 400px;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -202,22 +229,6 @@ button:hover {
   flex-wrap: wrap;
 }
 
-.login {
-  height: 50%;
-  width: 100%;
-  right: 0;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  text-align: center;
-  padding: 25px;
-  background-color: rgba(0, 0, 0, 0);
-  border: solid 3px;
-  border-radius: 20px;
-}
-
 .LoadingImage {
   margin-top: 50px;
   width: 100px;
@@ -233,27 +244,25 @@ button:hover {
     transform: rotatez(-360deg);
   }
 }
-
-.Cart_button {
-  text-transform: uppercase;
-  padding: 8px;
-  margin: 2px;
-  font-weight: 900;
-  background-color: rgb(222, 222, 222);
-  cursor: pointer;
-  border: #007bff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  height: 35px;
-  width: 35px;
+.Cart_divider {
+  width: 100%;
   display: flex;
-  align-items: center;
-  color: var(--Green_color);
-  font-size: xx-large;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
+.Cart_options {
+  padding: 5px;
+
+  min-width: 20%;
+}
 .Cart_active {
-  background-color: var(--Green_color);
+  background: linear-gradient(to bottom, var(--Green_color), #00ff0d);
+}
+
+.Cart_active:hover {
+  background: linear-gradient(to bottom, var(--Green_color), #007c06);
 }
 
 .Cart_button:hover {
@@ -263,6 +272,7 @@ button:hover {
 .Cart_screen {
   display: flex;
   flex-direction: column;
+  width: 95%;
 }
 
 .Cart_img {
@@ -270,32 +280,45 @@ button:hover {
   max-height: 100%;
   margin-right: 10px;
 }
-
-.Cart_button_number {
-  color: #007bff;
-}
 .Cart_items {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 380px;
+
+  justify-content: right;
 }
 .Cart_item_card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  height: 350px;
-  width: 300px;
+  justify-content: space-evenly;
+  height: auto;
+  min-width: 360px;
+  width: 70%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
   border: 1px solid #ccc;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  margin: 10px;
 }
 
-.Product_card_img {
-  max-width: 400px;
-  max-height: 400px;
+.Cart_button {
+  cursor: pointer;
+  border-radius: 10px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  color: var(--Green_color);
+}
+
+.Cart_card_img {
+  padding: 5px;
+  max-width: 70px;
+  max-height: 70px;
 }
 
 .Cart_item_buttons {
@@ -303,26 +326,26 @@ button:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  width: 50%;
+  width: 120px;
 
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
-.Cart_item_text h3 {
+.Cart_item_text {
   text-transform: capitalize;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  max-width: 50%;
 }
 
 .ArticleForm {
-  height: 450px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
-  background-color: rgb(194, 194, 194);
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+  width: 400px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .ArticleForm label {
@@ -331,7 +354,7 @@ button:hover {
 
 .ArticleForm input {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  width: 100%;
+  width: auto;
   padding: 5px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -341,4 +364,66 @@ button:hover {
 .ArticleForm .Submit_Button {
   margin-top: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.Filter_Div {
+  margin-bottom: 10px;
+}
+
+.Filter_Div label {
+  margin-right: 10px;
+}
+
+.Filter_Div select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.Form_container {
+  margin-top: 50px;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }

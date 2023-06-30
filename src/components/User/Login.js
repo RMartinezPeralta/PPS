@@ -1,36 +1,36 @@
 import { useContext, useState } from "react";
-import { login } from "./Authapi";
 import { useNavigate } from "react-router-dom";
-import { AuthDispatchContext } from "./Authcontextdispatch";
+import { AuthContext } from "./Authcontext";
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState("");
+  const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const Navigate = useNavigate();
-  const setCurrentUser = useContext(AuthDispatchContext);
+  const { attemptLogin } = useContext(AuthContext);
+
+  // Envia los datos al Context para que intente logear
+  const handleClick = async () => {
+    const response = await attemptLogin(Email, password);
+    console.log("Response: ", response);
+    if (response === true) {
+      Navigate(`/Home`);
+    } else {
+      alert("Email o contraseña incorrectos");
+    }
+  };
 
   return (
-    <div className="login">
-      <div className="Input">
-        <label for="username">Username: </label>
-        <input id="username" type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-        <label for="password">Contraseña: </label>
+    <div className="Form_container">
+      <h2>Login</h2>
+      <div className="form-group">
+        <label htmlFor="Email">Email:</label>
+        <input id="Email" type="text" value={Email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Contraseña:</label>
         <input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
       </div>
-
-      <button
-        className="Button"
-        onClick={() => {
-          login(username, password)
-            .then((user) => {
-              setCurrentUser(user);
-              console.log("login correcto", user);
-              Navigate("/");
-            })
-            .catch((err) => {
-              alert(err);
-            });
-        }}>
+      <button className="Green_button" onClick={handleClick}>
         Ingresar
       </button>
     </div>

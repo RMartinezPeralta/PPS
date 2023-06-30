@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export function Getproducts() {
   return fetch("/Product?state=1", {
     method: "GET",
@@ -54,6 +52,48 @@ export function deleteProduct(id) {
     .then((res) => res.json())
     .then((data) => {
       window.location.reload();
+      return data;
+    });
+}
+
+export function Getbrands() {
+  return fetch("/Brand?state=1", {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+}
+export function Login(newEmail, newPassword) {
+  const url_Login = `/Account/Login?Email=${newEmail}&Password=${newPassword}`;
+
+  return fetch(url_Login, {
+    method: "POST",
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Login request failed with status ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error("Login error: ", error);
+      return false;
+    });
+}
+
+export function getUserById(id) {
+  const parsedId = parseInt(id, 10);
+  const url_product_by_id = `/Account/getAccountById/${parsedId}`;
+  return fetch(url_product_by_id, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => {
       return data;
     });
 }

@@ -16,6 +16,7 @@ const BrandFilter = ({ filterCategory, categoryChanged, label, all }) => {
         <option value={6}>Kingston</option>
         <option value={7}>Intel</option>
         <option value={8}>AMD</option>
+        <option value={9}>Nvidia</option>
       </select>
     </div>
   );

@@ -1,4 +1,3 @@
-import LoginScreen from "../User/Login";
 import Navbar from "./Navbar";
 
 const Header = () => {
