@@ -4,6 +4,7 @@ import { AuthContext } from "../User/Authcontext";
 import { useContext } from "react";
 import Logoff from "../User/Logoff";
 
+
 const Navbar = () => {
   const Navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -33,6 +34,12 @@ const Navbar = () => {
           Cliente
         </button>
       )}
+      {currentUser.role === 0 && (
+        <button className="Button" onClick={() => Navigate("/Register")}>
+          Register
+        </button>
+      )}
+      
       {currentUser.role === 0 ? (
         <button className="Button" onClick={() => Navigate("/Login")}>
           Login

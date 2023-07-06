@@ -7,6 +7,7 @@ import Products from "../Products/Products";
 import Vendor from "../Vendor/Vendor";
 import Layout from "./Layout";
 import NotFound from "../Notfound";
+import Register from "../User/Register";
 import LoginScreen from "../User/Login";
 import Productscreen from "../Products/Productscreen";
 import Cart_screen from "../Cart/Cart_screen";
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="/client" element={<Client />} />
       <Route path="/products" element={<Products />} />
       <Route path="/products/:id" element={<Productscreen />} />
+      <Route path="/Register" element={<Register />} />
       <Route path="/Login" element={<LoginScreen />} />
       <Route path="/Cart" element={<Cart_screen />} />
       <Route path="/Purchase" element={<Purchase_screen />} />

@@ -65,6 +65,27 @@ export function Getbrands() {
       return data;
     });
 }
+export function Register(newName, newLastName, newEmail, newPassword) {
+  const url_Register = `/Account/Register?Email=${newName}&=${newLastName}&=${newEmail}&Password=${newPassword}`;
+
+  return fetch(url_Register, {
+    method: "POST",
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Register request failed with status ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error("Register error: ", error);
+      return false;
+    });
+}
+
 export function Login(newEmail, newPassword) {
   const url_Login = `/Account/Login?Email=${newEmail}&Password=${newPassword}`;
 
