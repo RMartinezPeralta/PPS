@@ -65,11 +65,17 @@ export function Getbrands() {
       return data;
     });
 }
-export function Register(newName, newLastName, newEmail, newPassword) {
-  const url_Register = `/Account/Register?Email=${newName}&=${newLastName}&=${newEmail}&Password=${newPassword}`;
+export function Register(registerData) {
+  console.log("Aqui", registerData);
+  const url_Register = `/Account/Register`;
+  const new_data = JSON.stringify(registerData);
 
   return fetch(url_Register, {
     method: "POST",
+    body: new_data,
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((res) => {
       if (!res.ok) {

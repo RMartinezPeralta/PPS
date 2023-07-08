@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Cartcontext } from "./Cart_context";
 import { useContext } from "react";
 
-const Cart_button = () => {
+const CartButton = () => {
   const navigate = useNavigate();
   const { Cart_length } = useContext(Cartcontext);
 
@@ -17,4 +17,4 @@ const Cart_button = () => {
   );
 };
 
-export default Cart_button;
+export default CartButton;

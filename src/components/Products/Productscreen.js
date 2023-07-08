@@ -28,7 +28,6 @@ const Productscreen = () => {
       ) : (
         <div>
           <h2>{article.name}</h2>
-          <h3>{article.category}</h3>
           <img className="Product_page_image" src={article.img} alt="Imagen no encontrada"></img>
           <p>{article.description}</p>
           <p> Precio: ${article.pricePurchase}</p>

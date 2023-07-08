@@ -18,14 +18,13 @@ const guestMode = () => {
 export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(guestMode);
 
-  const attemptRegister = async (Name, LastName, Email, Password) => {
-    const response = await Register(Email, Password);
+  const attemptRegister = async (registerData) => {
+    const response = await Register(registerData);
     if (response === false) {
-      console.log("Login error");
+      console.log("Error al registrar");
       return false;
     } else {
-      console.log("Success");
-      setAccount(response);
+      console.log("Exito al registrar");
       return true;
     }
   };
@@ -34,10 +33,10 @@ export const AuthContextProvider = (props) => {
   const attemptLogin = async (Email, Password) => {
     const response = await Login(Email, Password);
     if (response === false) {
-      console.log("Login error");
+      console.log("Error de login");
       return false;
     } else {
-      console.log("Success");
+      console.log("Login exitoso");
       setAccount(response);
       return true;
     }
@@ -53,7 +52,8 @@ export const AuthContextProvider = (props) => {
       email: data.email,
     };
     setCurrentUser(userData);
-    localStorage.setItem("authToken", userData.id); // Convert userData to a formatted JSON string
+    // Guarda un token en localstorage
+    localStorage.setItem("authToken", userData.id);
   };
 
   const rememberRegister = async (storedId) => {
@@ -81,9 +81,5 @@ export const AuthContextProvider = (props) => {
     logOff,
   };
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {props.children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>;
 };

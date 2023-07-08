@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cartcontext } from "./Cart_context";
 import { Getproducts } from "../Service/Api";
-import Cart_item from "./Cart_item";
+import CartItem from "./Cart_item";
 import LoadingScreen from "../Loadingscreen";
 
-const Cart_screen = () => {
+const CartScreen = () => {
   const [loading, setLoading] = useState(true);
   const [articlesList, setArticlesList] = useState([]);
   const articleListHandler = (List) => {
@@ -23,7 +23,7 @@ const Cart_screen = () => {
   const Cart_map = Object.keys(articlesList).map((key) => {
     const product = articlesList[key];
     if (cartItems.hasOwnProperty(product.id) && cartItems[product.id] !== 0) {
-      return <Cart_item key={product.id} productData={product} />;
+      return <CartItem key={product.id} productData={product} />;
     }
     return null;
   });
@@ -76,4 +76,4 @@ const Cart_screen = () => {
   );
 };
 
-export default Cart_screen;
+export default CartScreen;

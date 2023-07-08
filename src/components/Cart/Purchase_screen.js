@@ -1,4 +1,4 @@
-const Purchase_screen = () => {
+const PurchaseScreen = () => {
   return (
     <div>
       <h1>Compra realizada</h1>
@@ -6,4 +6,4 @@ const Purchase_screen = () => {
   );
 };
 
-export default Purchase_screen;
+export default PurchaseScreen;

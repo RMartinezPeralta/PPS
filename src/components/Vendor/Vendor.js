@@ -94,7 +94,11 @@ const Vendor = () => {
       setInputImage("");
       setInputPrice(0);
     } else {
-      alert("Error al ingresar datos");
+      const errorMessages = Object.entries(errorsValidation)
+        .map(([field, errorMessage]) => `${field}: ${errorMessage}`)
+        .join("\n");
+
+      alert(errorMessages);
     }
   };
 
@@ -112,7 +116,7 @@ const Vendor = () => {
       </div>
       <div className="form-group">
         <label>Descripcion </label>
-        <input value={inputText} onChange={changeInputTextHandler} type="text" />
+        <textarea value={inputText} onChange={changeInputTextHandler} rows={5} />
       </div>
       <div className="form-group">
         <Filter filterCategory={inputCategory} categoryChanged={changeInputCategoryHandler} label="Categoria" all={false} />
