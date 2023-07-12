@@ -16,7 +16,6 @@ const Products = () => {
   const fetchData = async () => {
     setLoading(true);
     const List = await Getproducts();
-    console.log(List);
     articleListHandler(List);
     setLoading(false);
   };

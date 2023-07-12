@@ -10,7 +10,7 @@ const Layout = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
-      console.log("Token", authToken);
+      console.log("Stored id: ", authToken);
       rememberLogin(authToken);
     }
   }, []);

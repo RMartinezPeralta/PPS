@@ -66,9 +66,9 @@ export function Getbrands() {
     });
 }
 export function Register(registerData) {
-  console.log("Aqui", registerData);
-  const url_Register = `/Account/Register`;
+  const url_Register = `/auth/signup`;
   const new_data = JSON.stringify(registerData);
+  console.log("New data: ", new_data);
 
   return fetch(url_Register, {
     method: "POST",
@@ -78,6 +78,7 @@ export function Register(registerData) {
     },
   })
     .then((res) => {
+      console.log("Response: ", res);
       if (!res.ok) {
         throw new Error(`Register request failed with status ${res.status}`);
       }
@@ -92,6 +93,7 @@ export function Register(registerData) {
     });
 }
 
+/*
 export function Login(newEmail, newPassword) {
   const url_Login = `/Account/Login?Email=${newEmail}&Password=${newPassword}`;
 
@@ -112,15 +114,46 @@ export function Login(newEmail, newPassword) {
       return false;
     });
 }
+*/
+export function Login(newEmail, newPassword) {
+  const url_Login = `/auth/login`;
+  const body = JSON.stringify({
+    email: newEmail,
+    password: newPassword,
+  });
+
+  return fetch(url_Login, {
+    method: "POST",
+    body: body,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Login request failed with status ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error("Login error: ", error);
+      return false;
+    });
+}
 
 export function getUserById(id) {
-  const parsedId = parseInt(id, 10);
-  const url_product_by_id = `/Account/getAccountById/${parsedId}`;
-  return fetch(url_product_by_id, {
+  //const parsedId = parseInt(id, 10);
+  const url_user_by_id = `/auth/account?id=${id}`;
+  console.log("URL:", url_user_by_id);
+  return fetch(url_user_by_id, {
     method: "GET",
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("Get user by id: ", data);
       return data;
     });
 }

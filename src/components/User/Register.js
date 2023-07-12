@@ -6,6 +6,11 @@ const Register = () => {
   const navigate = useNavigate();
   const { attemptRegister } = useContext(AuthContext);
 
+  const [userName, setUserName] = useState("");
+  const changeUserNameHandler = (event) => {
+    setUserName(event.target.value);
+  };
+
   const [name, setName] = useState("");
   const changeNameHandler = (event) => {
     setName(event.target.value);
@@ -36,34 +41,45 @@ const Register = () => {
   const validateData = (registerData) => {
     // Validacion de los datos puestos por el usuario, cada error es añadido a errorsValidation
     let errorsValidation = {};
-
-    if (registerData.name === "") {
-      errorsValidation = { ...errorsValidation, Nombre: "Campo obligatorio." };
-    } else if (registerData.name.length < 3) {
-      errorsValidation = { ...errorsValidation, Nombre: "El nombre de usuario debe tener al menos 3 letras" };
+    if (registerData.userName === "") {
+      errorsValidation = { ...errorsValidation, Usuario: "Campo obligatorio." };
+    } else if (registerData.userName.length < 3) {
+      errorsValidation = { ...errorsValidation, Usuario: "El nombre de usuario debe tener al menos 3 letras" };
     } else {
-      delete errorsValidation.name;
+      delete errorsValidation.Usuario;
+    }
+    if (registerData.firstName === "") {
+      errorsValidation = { ...errorsValidation, Nombre: "Campo obligatorio." };
+    } else if (registerData.firstName.length < 3) {
+      errorsValidation = { ...errorsValidation, Nombre: "El nombre debe tener al menos 3 letras" };
+    } else {
+      delete errorsValidation.Nombre;
     }
     if (registerData.lastName === "") {
       errorsValidation = { ...errorsValidation, Apellido: "Campo obligatorio." };
     } else if (registerData.lastName.length < 3) {
       errorsValidation = { ...errorsValidation, Apellido: "El apellido debe tener al menos 3 letras" };
     } else {
-      delete errorsValidation.name;
+      delete errorsValidation.Apellido;
     }
     if (registerData.email === "") {
       errorsValidation = { ...errorsValidation, Email: "Campo obligatorio." };
     } else if (!isEmailValid(registerData.email)) {
       errorsValidation = { ...errorsValidation, Email: "Debes insertar un Email valido" };
     } else {
-      delete errorsValidation.email;
+      delete errorsValidation.Email;
     }
     if (registerData.password === "") {
       errorsValidation = { ...errorsValidation, Contraseña: "Campo obligatorio." };
-    } else if (registerData.password.length < 6) {
-      errorsValidation = { ...errorsValidation, Contraseña: "La contraseña debe tener al menos 6 caracteres" };
+    } else if (registerData.password.length < 8) {
+      errorsValidation = { ...errorsValidation, Contraseña: "La contraseña debe tener al menos 8 caracteres." };
+    } else if (!/[\W_]/.test(registerData.password)) {
+      errorsValidation = {
+        ...errorsValidation,
+        Contraseña: "La contraseña debe contener al menos un carácter no alfanumérico.",
+      };
     } else {
-      delete errorsValidation.email;
+      delete errorsValidation.Contraseña;
     }
 
     return errorsValidation;
@@ -72,7 +88,8 @@ const Register = () => {
   const handleSubmit = async () => {
     const registerData = {
       roleId: 3,
-      name: name,
+      userName: userName,
+      firstName: name,
       lastName: lastName,
       email: email,
       password: password,
@@ -82,12 +99,15 @@ const Register = () => {
     if (Object.keys(errorsValidation).length === 0) {
       // Sin errores, se envia a api
       const response = await attemptRegister(registerData);
-      setEmail("");
-      setLastName("");
-      setName("");
-      setPassword("");
+      console.log("Register response: ", response);
       if (response === true) {
         alert("Usuario registrado, por favor inicie sesion");
+        setEmail("");
+        setLastName("");
+        setName("");
+        setUserName("");
+        setPassword("");
+        navigate(`/login`);
       } else {
         // Ocurre cuando hay un error de conexion de parte de la api
         alert("Hubo un error, intentelo mas tarde");
@@ -105,22 +125,25 @@ const Register = () => {
   return (
     <div className="Form_container">
       <h2>Registrar usuario</h2>
-
       <div className="form-group">
-        <label>Nombre </label>
-        <input value={name} onChange={changeNameHandler} type="text" />
+        <label htmlFor="userName">Nombre de usuario</label>
+        <input id="userName" value={userName} onChange={changeUserNameHandler} type="text" />
       </div>
       <div className="form-group">
-        <label>Apellido</label>
-        <input value={lastName} onChange={changeLastNameHandler} type="text" />
+        <label htmlFor="name">Nombre</label>
+        <input id="name" value={name} onChange={changeNameHandler} type="text" />
       </div>
       <div className="form-group">
-        <label>Email </label>
-        <input value={email} onChange={changeEmailHandler} type="email" />
+        <label htmlFor="lastName">Apellido</label>
+        <input id="lastName" value={lastName} onChange={changeLastNameHandler} type="text" />
       </div>
       <div className="form-group">
-        <label>Contraseña </label>
-        <input value={password} onChange={changePasswordHandler} type="password" />
+        <label htmlFor="email">Email</label>
+        <input id="email" value={email} onChange={changeEmailHandler} type="email" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Contraseña</label>
+        <input id="password" value={password} onChange={changePasswordHandler} type="password" />
       </div>
       <button className="Green_button" onClick={handleSubmit}>
         Aceptar

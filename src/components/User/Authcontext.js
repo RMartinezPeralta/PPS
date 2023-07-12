@@ -8,15 +8,14 @@ const guestMode = () => {
   const guestUser = {
     role: 0,
     id: null,
-    name: null,
-    lastName: null,
-    email: null,
+    userName: null,
   };
   return guestUser;
 };
 
 export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(guestMode);
+  const [currentToken, setCurrentToken] = useState(null);
 
   const attemptRegister = async (registerData) => {
     const response = await Register(registerData);
@@ -33,11 +32,10 @@ export const AuthContextProvider = (props) => {
   const attemptLogin = async (Email, Password) => {
     const response = await Login(Email, Password);
     if (response === false) {
-      console.log("Error de login");
       return false;
     } else {
-      console.log("Login exitoso");
-      setAccount(response);
+      setAccount(response.user);
+      setCurrentToken(response.token);
       return true;
     }
   };
@@ -47,33 +45,32 @@ export const AuthContextProvider = (props) => {
     const userData = {
       role: data.roleId,
       id: data.id,
-      name: data.name,
+      userName: data.userName,
+      name: data.firstName,
       lastName: data.lastName,
       email: data.email,
     };
     setCurrentUser(userData);
     // Guarda un token en localstorage
-    localStorage.setItem("authToken", userData.id);
+    localStorage.setItem("authToken", data.id);
   };
 
-  const rememberRegister = async (storedId) => {
-    const response = await getUserById(storedId);
-    setAccount(response);
-  };
-  //Llama api con Id en localstorage, devuelve usuario, el cual es seteado. Esto es inseguro, habria que hashear el ID y crear un metodo nuevo
+  //Llama api con Id en localstorage, devuelve usuario, el cual es seteado.
   const rememberLogin = async (storedId) => {
     const response = await getUserById(storedId);
     setAccount(response);
   };
   // Vuelve el usuario a "Guest" y borra el token en local storage
   const logOff = () => {
+    console.log("Log off");
     setCurrentUser(guestMode);
+    setCurrentToken(null);
     localStorage.removeItem("authToken");
   };
 
   const contextValue = {
     currentUser,
-    rememberRegister,
+    currentToken,
     rememberLogin,
     setCurrentUser,
     attemptRegister,
