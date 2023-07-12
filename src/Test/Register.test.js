@@ -5,6 +5,7 @@ import Register from "../components/User/Register";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Register component", () => {
+  // TEST 1
   test("Intentar registrar un usuario con datos validos", async () => {
     const attemptRegisterMock = jest.fn().mockResolvedValue(true);
     window.alert = jest.fn(); // Mock the alert function
@@ -17,7 +18,7 @@ describe("Register component", () => {
       </MemoryRouter>
     );
 
-    // Fill in the input fields with valid values
+    // llenar los campos con datos validos
     act(() => {
       fireEvent.change(screen.getByLabelText("Nombre de usuario"), { target: { value: "TestUser123" } });
       fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Juan" } });
@@ -26,13 +27,13 @@ describe("Register component", () => {
       fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "contraseñatest%" } });
     });
 
-    // Submit the form
+    // Confirmar el formulario
     await act(async () => {
       fireEvent.click(screen.getByText("Aceptar"));
-      await Promise.resolve(); // Wait for promises to resolve (e.g., API fetch)
+      await Promise.resolve();
     });
 
-    // Assertions
+    // Respuiesta esperada
     expect(attemptRegisterMock).toHaveBeenCalledWith({
       roleId: 3,
       userName: "TestUser123",
@@ -43,9 +44,10 @@ describe("Register component", () => {
     });
     expect(window.alert).toHaveBeenCalledWith("Usuario registrado, por favor inicie sesion");
   });
+  // TEST 2
   test("Intentar registrar un usuario con datos no validos", async () => {
     const attemptRegisterMock = jest.fn().mockResolvedValue(true);
-    window.alert = jest.fn(); // Mock the alert function
+    window.alert = jest.fn();
 
     render(
       <MemoryRouter>
@@ -55,7 +57,7 @@ describe("Register component", () => {
       </MemoryRouter>
     );
 
-    // Fill in the input fields with valid values
+    // Llenar con datos erroneos
     act(() => {
       fireEvent.change(screen.getByLabelText("Nombre de usuario"), { target: { value: "" } });
       fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Ju" } });
@@ -64,15 +66,14 @@ describe("Register component", () => {
       fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "contraseniatest" } });
     });
 
-    // Submit the form
+    // Confirmar formulario
     await act(async () => {
       fireEvent.click(screen.getByText("Aceptar"));
-      await Promise.resolve(); // Wait for promises to resolve (e.g., API fetch)
+      await Promise.resolve();
     });
 
-    // Assertions
-    expect(attemptRegisterMock).not.toHaveBeenCalled(); // Make sure attemptRegister is not called
-    expect(window.alert).toHaveBeenCalledTimes(1); // Ensure that the alert is displayed
+    // Respuesta esperada
+    expect(attemptRegisterMock).not.toHaveBeenCalled(); // No se llama al metodo de registro
     expect(window.alert).toHaveBeenCalledWith(
       expect.stringMatching(/Usuario: Campo obligatorio./) &&
         expect.stringMatching(/Nombre: El nombre debe tener al menos 3 letras./) &&

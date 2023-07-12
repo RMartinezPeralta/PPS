@@ -34,17 +34,14 @@ export function postProduct(product) {
     .then((data) => {
       console.log(data);
       console.log("Success:");
-      // Perform any necessary actions with the response data
     })
     .catch((error) => {
       console.error("Error:", error);
-      // Handle any errors that occur during the request
     });
 }
 
 export function deleteProduct(id) {
   const parsedId = parseInt(id, 10);
-  // Construct the URL with the correct query parameter syntax
   const url_product_by_id = `/Product?IdProduct=${parsedId}`;
   return fetch(url_product_by_id, {
     method: "DELETE",
@@ -93,28 +90,6 @@ export function Register(registerData) {
     });
 }
 
-/*
-export function Login(newEmail, newPassword) {
-  const url_Login = `/Account/Login?Email=${newEmail}&Password=${newPassword}`;
-
-  return fetch(url_Login, {
-    method: "POST",
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Login request failed with status ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error("Login error: ", error);
-      return false;
-    });
-}
-*/
 export function Login(newEmail, newPassword) {
   const url_Login = `/auth/login`;
   const body = JSON.stringify({
@@ -145,15 +120,43 @@ export function Login(newEmail, newPassword) {
 }
 
 export function getUserById(id) {
-  //const parsedId = parseInt(id, 10);
   const url_user_by_id = `/auth/account?id=${id}`;
-  console.log("URL:", url_user_by_id);
   return fetch(url_user_by_id, {
     method: "GET",
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("Get user by id: ", data);
+      return data;
+    });
+}
+
+export function getUsers(token) {
+  const url = "/auth/AllAccounts";
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Get users: ", data);
+      return data;
+    });
+}
+
+export function deleteUserById(id, token) {
+  const url_user_by_id = `/auth/accounts/${id}`;
+  console.log("URL:", url_user_by_id);
+  return fetch(url_user_by_id, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Delete user by id: ", data);
       return data;
     });
 }

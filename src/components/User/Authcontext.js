@@ -16,7 +16,6 @@ const guestMode = () => {
 export const AuthContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(guestMode);
   const [currentToken, setCurrentToken] = useState(null);
-
   const attemptRegister = async (registerData) => {
     const response = await Register(registerData);
     if (response === false) {

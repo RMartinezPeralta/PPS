@@ -2,7 +2,7 @@ import { Route, RouterProvider, Navigate, createBrowserRouter, createRoutesFromE
 import { useContext } from "react";
 import { AuthContext } from "../User/Authcontext";
 
-import Admin from "../Admin";
+import Admin from "../Admin/Admin";
 import Client from "../Client";
 import Home from "../Home";
 import Products from "../Products/Products";
