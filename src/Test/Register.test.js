@@ -20,11 +20,21 @@ describe("Register component", () => {
 
     // llenar los campos con datos validos
     act(() => {
-      fireEvent.change(screen.getByLabelText("Nombre de usuario"), { target: { value: "TestUser123" } });
-      fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Juan" } });
-      fireEvent.change(screen.getByLabelText("Apellido"), { target: { value: "Perez" } });
-      fireEvent.change(screen.getByLabelText("Email"), { target: { value: "JuanPerez@Gmail.com" } });
-      fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "contraseñatest%" } });
+      fireEvent.change(screen.getByLabelText("Nombre de usuario"), {
+        target: { value: "TestUser123" },
+      });
+      fireEvent.change(screen.getByLabelText("Nombre"), {
+        target: { value: "Juan" },
+      });
+      fireEvent.change(screen.getByLabelText("Apellido"), {
+        target: { value: "Perez" },
+      });
+      fireEvent.change(screen.getByLabelText("Email"), {
+        target: { value: "JuanPerez@Gmail.com" },
+      });
+      fireEvent.change(screen.getByLabelText("Contraseña"), {
+        target: { value: "contraseñatest%" },
+      });
     });
 
     // Confirmar el formulario
@@ -37,12 +47,14 @@ describe("Register component", () => {
     expect(attemptRegisterMock).toHaveBeenCalledWith({
       roleId: 3,
       userName: "TestUser123",
-      name: "Juan",
+      firstName: "Juan",
       lastName: "Perez",
       email: "JuanPerez@Gmail.com",
       password: "contraseñatest%",
     });
-    expect(window.alert).toHaveBeenCalledWith("Usuario registrado, por favor inicie sesion");
+    expect(window.alert).toHaveBeenCalledWith(
+      "Usuario registrado, por favor inicie sesion"
+    );
   });
   // TEST 2
   test("Intentar registrar un usuario con datos no validos", async () => {
@@ -59,11 +71,21 @@ describe("Register component", () => {
 
     // Llenar con datos erroneos
     act(() => {
-      fireEvent.change(screen.getByLabelText("Nombre de usuario"), { target: { value: "" } });
-      fireEvent.change(screen.getByLabelText("Nombre"), { target: { value: "Ju" } });
-      fireEvent.change(screen.getByLabelText("Apellido"), { target: { value: "" } });
-      fireEvent.change(screen.getByLabelText("Email"), { target: { value: "JuanPerez" } });
-      fireEvent.change(screen.getByLabelText("Contraseña"), { target: { value: "contraseniatest" } });
+      fireEvent.change(screen.getByLabelText("Nombre de usuario"), {
+        target: { value: "" },
+      });
+      fireEvent.change(screen.getByLabelText("Nombre"), {
+        target: { value: "Ju" },
+      });
+      fireEvent.change(screen.getByLabelText("Apellido"), {
+        target: { value: "" },
+      });
+      fireEvent.change(screen.getByLabelText("Email"), {
+        target: { value: "JuanPerez" },
+      });
+      fireEvent.change(screen.getByLabelText("Contraseña"), {
+        target: { value: "contraseniatest" },
+      });
     });
 
     // Confirmar formulario
@@ -76,10 +98,14 @@ describe("Register component", () => {
     expect(attemptRegisterMock).not.toHaveBeenCalled(); // No se llama al metodo de registro
     expect(window.alert).toHaveBeenCalledWith(
       expect.stringMatching(/Usuario: Campo obligatorio./) &&
-        expect.stringMatching(/Nombre: El nombre debe tener al menos 3 letras./) &&
+        expect.stringMatching(
+          /Nombre: El nombre debe tener al menos 3 letras./
+        ) &&
         expect.stringMatching(/Apellido: Campo obligatorio./) &&
         expect.stringMatching(/Email: Debes insertar un Email valido./) &&
-        expect.stringMatching(/Contraseña: La contraseña debe contener al menos un carácter no alfanumérico./)
+        expect.stringMatching(
+          /Contraseña: La contraseña debe contener al menos un carácter no alfanumérico./
+        )
     );
   });
 });
