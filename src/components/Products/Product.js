@@ -7,7 +7,7 @@ import { AuthContext } from "../User/Authcontext";
 const Product = ({ productData }) => {
   const navigate = useNavigate();
   const { addToCart, cartItems } = useContext(Cartcontext);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentToken } = useContext(AuthContext);
   const cartItemCount = cartItems[productData.id];
 
   // Llama a router con un url unico en base al ID del producto
@@ -19,7 +19,7 @@ const Product = ({ productData }) => {
   const handleDelete = () => {
     const confirmDelete = window.confirm("¿Estas seguro que quieres borrar este producto?");
     if (confirmDelete) {
-      deleteProduct(productData.id);
+      deleteProduct(productData.id, currentToken);
     }
   };
 

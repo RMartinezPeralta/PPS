@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Filter from "../Products/Filter";
 import BrandFilter from "../Products/BrandFilter";
 import { postProduct } from "../Service/Api";
+import { AuthContext } from "../User/Authcontext";
 const Vendor = () => {
   // States en los que se almacenan los inputs del usuario
   const [inputName, setInputName] = useState("");
@@ -14,7 +15,7 @@ const Vendor = () => {
     setInputText(event.target.value);
   };
 
-  const [inputPrice, setInputPrice] = useState(0);
+  const [inputPrice, setInputPrice] = useState(100);
   const changeInputPriceHandler = (event) => {
     const priceValue = parseFloat(event.target.value);
 
@@ -86,13 +87,15 @@ const Vendor = () => {
     const errorsValidation = validateArticle(articleData);
     // Validacion de datos, si errorsValidation vuelve vacio no hay errores
     if (Object.keys(errorsValidation).length === 0) {
-      postProduct(articleData);
+      postProduct(articleData, currentToken);
+      alert("Producto creado");
       setInputName("");
       setInputText("");
       setInputCategory(1);
       setInputBrand(1);
       setInputImage("");
-      setInputPrice(0);
+      setInputPrice(100);
+      setinputStock(10);
     } else {
       const errorMessages = Object.entries(errorsValidation)
         .map(([field, errorMessage]) => `${field}: ${errorMessage}`)
@@ -101,6 +104,8 @@ const Vendor = () => {
       alert(errorMessages);
     }
   };
+
+  const { currentToken } = useContext(AuthContext);
 
   return (
     <div className="Form_container">

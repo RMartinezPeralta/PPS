@@ -1,5 +1,5 @@
 export function Getproducts() {
-  return fetch("/Product?state=1", {
+  return fetch("/Product/AllProducts", {
     method: "GET",
   })
     .then((res) => res.json())
@@ -20,13 +20,14 @@ export function getProductById(id) {
     });
 }
 
-export function postProduct(product) {
+export function postProduct(product, token) {
   const new_product = JSON.stringify(product);
   console.log(new_product);
   fetch("/Product", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: new_product,
   })
@@ -40,11 +41,15 @@ export function postProduct(product) {
     });
 }
 
-export function deleteProduct(id) {
+export function deleteProduct(id, token) {
   const parsedId = parseInt(id, 10);
   const url_product_by_id = `/Product?IdProduct=${parsedId}`;
   return fetch(url_product_by_id, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then((res) => res.json())
     .then((data) => {
@@ -131,11 +136,12 @@ export function getUserById(id) {
 }
 
 export function getUsers(token) {
-  const url = "/auth/AllAccounts";
+  console.log("Token get all: ", token);
+  const url = `/auth/AllAccounts`;
   return fetch(url, {
     method: "GET",
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   })
     .then((res) => res.json())
@@ -146,12 +152,13 @@ export function getUsers(token) {
 }
 
 export function deleteUserById(id, token) {
+  console.log("Token delete: ", token);
   const url_user_by_id = `/auth/accounts/${id}`;
-  console.log("URL:", url_user_by_id);
   return fetch(url_user_by_id, {
     method: "DELETE",
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   })
     .then((res) => res.json())

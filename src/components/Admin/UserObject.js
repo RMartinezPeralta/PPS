@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { deleteUserById } from "../Service/Api";
+import { AuthContext } from "../User/Authcontext";
 
 const getRoleName = (roleId) => {
   switch (roleId) {
@@ -14,10 +16,11 @@ const getRoleName = (roleId) => {
 };
 
 const UserObject = ({ userData }) => {
+  const { currentToken } = useContext(AuthContext);
   const handleDelete = async () => {
     const confirmDelete = window.confirm("¿Estás seguro que quieres borrar esta cuenta?");
     if (confirmDelete) {
-      const response = await deleteUserById(userData.id);
+      const response = await deleteUserById(userData.id, currentToken);
       console.log("Delete response: ", response);
     }
   };

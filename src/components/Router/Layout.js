@@ -8,10 +8,12 @@ const Layout = () => {
   const { rememberLogin } = useContext(AuthContext);
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
     const authToken = localStorage.getItem("authToken");
-    if (authToken) {
-      console.log("Stored id: ", authToken);
-      rememberLogin(authToken);
+    if (userId && authToken) {
+      console.log("Stored id: ", userId);
+      console.log("Stored token: ", authToken);
+      rememberLogin(userId, authToken);
     }
   }, []);
   return (

@@ -33,14 +33,13 @@ export const AuthContextProvider = (props) => {
     if (response === false) {
       return false;
     } else {
-      setAccount(response.user);
-      setCurrentToken(response.token);
+      setAccount(response.user, response.token);
       return true;
     }
   };
 
   // Setea usuario
-  const setAccount = async (data) => {
+  const setAccount = async (data, token) => {
     const userData = {
       role: data.roleId,
       id: data.id,
@@ -50,14 +49,16 @@ export const AuthContextProvider = (props) => {
       email: data.email,
     };
     setCurrentUser(userData);
+    setCurrentToken(token);
     // Guarda un token en localstorage
-    localStorage.setItem("authToken", data.id);
+    localStorage.setItem("authToken", token);
+    localStorage.setItem("userId", data.id);
   };
 
   //Llama api con Id en localstorage, devuelve usuario, el cual es seteado.
-  const rememberLogin = async (storedId) => {
+  const rememberLogin = async (storedId, storedToken) => {
     const response = await getUserById(storedId);
-    setAccount(response);
+    setAccount(response, storedToken);
   };
   // Vuelve el usuario a "Guest" y borra el token en local storage
   const logOff = () => {
@@ -65,6 +66,7 @@ export const AuthContextProvider = (props) => {
     setCurrentUser(guestMode);
     setCurrentToken(null);
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
   };
 
   const contextValue = {
