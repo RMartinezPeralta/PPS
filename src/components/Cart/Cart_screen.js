@@ -4,6 +4,7 @@ import { Cartcontext } from "./Cart_context";
 import { Getproducts } from "../Service/Api";
 import CartItem from "./Cart_item";
 import LoadingScreen from "../Loadingscreen";
+import { AuthContext } from "../User/Authcontext";
 
 const CartScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,7 @@ const CartScreen = () => {
     setArticlesList(List);
   };
   const { cartItems, checkout, getTotalCartAmount } = useContext(Cartcontext);
+  const { currentUser, currentToken } = useContext(AuthContext);
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(null);
   const handleAmount = async () => {
@@ -32,6 +34,19 @@ const CartScreen = () => {
     setLoading(true);
     articleListHandler(await Getproducts());
     setLoading(false);
+  };
+
+  const handleCheckout = async (userId, Token, total) => {
+    if (currentUser.Role !== 0) {
+      console.log("Checkout ID: ", userId, "Checkout Token: ", Token);
+      const orderData = {
+        Userid: userId,
+        total: total,
+      };
+      await checkout(orderData, Token);
+    } else {
+      alert("Debes iniciar sesion");
+    }
   };
 
   useEffect(() => {
@@ -59,7 +74,7 @@ const CartScreen = () => {
                 <button
                   className="Green_button"
                   onClick={() => {
-                    checkout();
+                    handleCheckout(currentUser.id, currentToken, totalAmount);
                     navigate("/Purchase");
                   }}>
                   Comprar

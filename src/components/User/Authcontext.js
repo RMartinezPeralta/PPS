@@ -28,8 +28,8 @@ export const AuthContextProvider = (props) => {
   };
 
   //Llama metodo Login en Api, si funciona setea nuevo usuario
-  const attemptLogin = async (Email, Password) => {
-    const response = await Login(Email, Password);
+  const attemptLogin = async (loginData) => {
+    const response = await Login(loginData);
     if (response === false) {
       return false;
     } else {
@@ -51,14 +51,11 @@ export const AuthContextProvider = (props) => {
     setCurrentUser(userData);
     setCurrentToken(token);
     // Guarda un token en localstorage
-    localStorage.setItem("authToken", token);
-    localStorage.setItem("userId", data.id);
   };
 
   //Llama api con Id en localstorage, devuelve usuario, el cual es seteado.
-  const rememberLogin = async (storedId, storedToken) => {
-    const response = await getUserById(storedId);
-    setAccount(response, storedToken);
+  const rememberLogin = async (storedLogin) => {
+    attemptLogin(storedLogin);
   };
   // Vuelve el usuario a "Guest" y borra el token en local storage
   const logOff = () => {

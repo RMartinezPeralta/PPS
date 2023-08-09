@@ -27,7 +27,7 @@ const UserObject = ({ userData }) => {
 
   return (
     <div className="UserObject">
-      <h3>ID: {userData.id}</h3>
+      <h3>ID: {userData.userId}</h3>
       <h3>Email: {userData.email}</h3>
       <h3>Tipo de cuenta: {getRoleName(userData.roleId)}</h3>
       <button className="Red_button" onClick={handleDelete}>

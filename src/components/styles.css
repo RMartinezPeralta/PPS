@@ -445,3 +445,68 @@ input {
   align-items: center;
   justify-content: center;
 }
+
+.UserPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Order_Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  min-width: 360px;
+  width: auto;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.Order_Item {
+  display: flex;
+  flex-direction: column; /* Change to column to allow text wrapping */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; /* Add this line to enable text wrapping */
+  width: 300px; /* Set a max width to prevent excessive stretching */
+  height: 200px;
+  padding: 10px; /* Add padding for better spacing */
+}
+
+.Order_Products_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Order_divider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Order_Img {
+  height: 100px;
+  width: 100px;
+}

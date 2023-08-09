@@ -52,9 +52,7 @@ describe("Register component", () => {
       email: "JuanPerez@Gmail.com",
       password: "contraseñatest%",
     });
-    expect(window.alert).toHaveBeenCalledWith(
-      "Usuario registrado, por favor inicie sesion"
-    );
+    expect(window.alert).toHaveBeenCalledWith("Usuario registrado, por favor inicie sesion");
   });
   // TEST 2
   test("Intentar registrar un usuario con datos no validos", async () => {
@@ -98,14 +96,10 @@ describe("Register component", () => {
     expect(attemptRegisterMock).not.toHaveBeenCalled(); // No se llama al metodo de registro
     expect(window.alert).toHaveBeenCalledWith(
       expect.stringMatching(/Usuario: Campo obligatorio./) &&
-        expect.stringMatching(
-          /Nombre: El nombre debe tener al menos 3 letras./
-        ) &&
+        expect.stringMatching(/Nombre: El nombre debe tener al menos 3 letras./) &&
         expect.stringMatching(/Apellido: Campo obligatorio./) &&
         expect.stringMatching(/Email: Debes insertar un Email valido./) &&
-        expect.stringMatching(
-          /Contraseña: La contraseña debe contener al menos un carácter no alfanumérico./
-        )
+        expect.stringMatching(/Contraseña: La contraseña debe contener al menos un carácter no alfanumérico./)
     );
   });
 });

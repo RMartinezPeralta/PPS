@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { AuthContext } from "../User/Authcontext";
 
 import Admin from "../Admin/Admin";
-import Client from "../Client";
 import Home from "../Home";
 import Products from "../Products/Products";
 import Vendor from "../Vendor/Vendor";
@@ -28,7 +27,6 @@ const Router = () => {
         <Route path="/account" element={currentUser.role !== 0 ? <Userpage /> : <Navigate to="/notfound" />} />
         <Route path="/admin" element={currentUser.role === 1 ? <Admin /> : <Navigate to="/notfound" />} />
         <Route path="/vendor" element={currentUser.role === 2 ? <Vendor /> : <Navigate to="/notfound" />} />
-        <Route path="/client" element={currentUser.role === 3 ? <Client /> : <Navigate to="/notfound" />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<Productscreen />} />
         <Route path="/Register" element={<Register />} />

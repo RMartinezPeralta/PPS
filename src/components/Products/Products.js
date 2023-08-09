@@ -28,7 +28,7 @@ const Products = () => {
   const [filterBrand, setFilterBrand] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   // Numero de productos a mostrar por pagina
-  const productsPerPage = 8;
+  const productsPerPage = 10;
 
   const categoryChangedHandler = (category) => {
     setFilterCategory(category);

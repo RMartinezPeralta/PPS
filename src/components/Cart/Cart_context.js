@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getProductById } from "../Service/Api";
+import { getProductById, postOrder, postOrderItem } from "../Service/Api";
 
 export const Cartcontext = createContext(null);
 
@@ -48,8 +48,24 @@ export const CartContextProvider = (props) => {
     setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
   };
   // Vacia el carro, crea la orden de compra (Sin implementar)
-  const checkout = () => {
-    setCartItems([]);
+  const checkout = async (userId, Token) => {
+    try {
+      const orderId = await postOrder(userId, Token);
+      console.log("New order ID: ", orderId);
+      for (let i = 0; i < Cart_length; i++) {
+        const orderItemData = {
+          productId: Object.keys(cartItems)[i],
+          orderId: orderId,
+          quantity: Object.values(cartItems)[i],
+        };
+        console.log("New Item:", orderItemData);
+        await postOrderItem(orderItemData);
+      }
+      setCartItems([]);
+    } catch (error) {
+      console.error("Checkout Error:", error);
+      // Handle the error here if needed
+    }
   };
 
   const contextValue = {

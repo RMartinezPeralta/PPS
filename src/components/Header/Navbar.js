@@ -28,11 +28,6 @@ const Navbar = () => {
           Vendedor
         </button>
       )}
-      {currentUser.role === 3 && (
-        <button className="Button" onClick={() => Navigate("/client")}>
-          Cliente
-        </button>
-      )}
       {currentUser.role === 0 && (
         <button className="Button" onClick={() => Navigate("/Register")}>
           Register

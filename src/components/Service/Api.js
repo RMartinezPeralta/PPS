@@ -95,16 +95,12 @@ export function Register(registerData) {
     });
 }
 
-export function Login(newEmail, newPassword) {
+export function Login(loginData) {
   const url_Login = `/auth/login`;
-  const body = JSON.stringify({
-    email: newEmail,
-    password: newPassword,
-  });
 
   return fetch(url_Login, {
     method: "POST",
-    body: body,
+    body: loginData,
     headers: {
       "Content-Type": "application/json",
     },
@@ -164,6 +160,78 @@ export function deleteUserById(id, token) {
     .then((res) => res.json())
     .then((data) => {
       console.log("Delete user by id: ", data);
+      return data;
+    });
+}
+
+export async function postOrder(Order, Token) {
+  const new_order = JSON.stringify(Order);
+  console.log("New order: ", new_order);
+
+  try {
+    const response = await fetch("/Order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+      body: new_order,
+    });
+
+    const data = await response.json();
+    console.log("New Order ID:", data);
+    return data; // Return the data here
+  } catch (error) {
+    console.error("Error:", error);
+    throw error; // Re-throw the error to handle it in the caller
+  }
+}
+
+export function postOrderItem(Item) {
+  const new_order_Item = JSON.stringify(Item);
+  fetch("/OrderItem", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: new_order_Item,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      console.log("Success:");
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+export function getOrderbyUserId(id) {
+  const url = `/Order/GetOrdersByUserId?userId=${id}`;
+
+  return fetch(url, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Orders by User ID: ", data);
+      return data;
+    });
+}
+
+export function getOrderItemsByOrderId(orderId) {
+  const url = `/OrderItem/GetByOrderId/${orderId}`;
+
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Order Items by Order ID: ", data);
       return data;
     });
 }

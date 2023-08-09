@@ -10,10 +10,16 @@ const LoginScreen = () => {
 
   // Envia los datos al Context para que intente logear
   const handleClick = async () => {
-    const response = await attemptLogin(Email, password);
+    const body = JSON.stringify({
+      email: Email,
+      password: password,
+    });
+    const response = await attemptLogin(body);
     console.log("Response: ", response);
     if (response === true) {
       Navigate(`/Home`);
+
+      localStorage.setItem("LoginData", body);
     } else {
       alert("Email o contraseña incorrectos");
     }
